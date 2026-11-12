@@ -85,17 +85,22 @@ function stopAutoScroll() {
 window.addEventListener('wheel', stopAutoScroll);
 window.addEventListener('touchstart', stopAutoScroll);
 
-// Buka Undangan
+
+// Buka Undangan (Dioptimalkan untuk iPhone/iOS)
 const bukaBtn = document.getElementById("buka-undangan");
 if (bukaBtn) {
   bukaBtn.addEventListener("click", () => {
     document.getElementById("hero").classList.add("hidden");
     document.getElementById("konten-undangan").classList.remove("hidden");
     window.scrollTo(0, 0); // Kembali ke posisi paling atas
-    fadeAudioIn();         // Nyalakan musik
     
-    // Mulai auto-scroll setelah 1 detik undangan dibuka
-    setTimeout(startAutoScroll, 1000);
+    // Nyalakan musik terlebih dahulu
+    fadeAudioIn();         
+    
+    // Gunakan requestAnimationFrame atau penundaan sedikit lebih lama agar diizinkan oleh Safari iPhone
+    setTimeout(() => {
+      startAutoScroll();
+    }, 800);
   });
 }
 
