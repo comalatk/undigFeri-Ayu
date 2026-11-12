@@ -105,7 +105,7 @@ if (bukaBtn) {
 }
 
 // Countdown Timer
-const targetDate = new Date("2025-08-01T08:00:00").getTime();
+const targetDate = new Date("2026-11-23T08:00:00").getTime();
 const countdownInterval = setInterval(() => {
   const now = new Date().getTime();
   const distance = targetDate - now;
