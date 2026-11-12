@@ -11,25 +11,27 @@ html {
 
 body {
   font-family: 'Roboto', sans-serif;
-  background: #fdfdfd;
-  color: #333;
+  background: #0d0d0d; /* Latar belakang hitam elegan */
+  color: #f0f0f0;      /* Warna teks utama putih lembut */
   line-height: 1.6;
   overflow-x: hidden;
 }
 
 a {
-  color: #007bff;
+  color: #d4af37;      /* Warna tautan Gold/Emas */
   text-decoration: none;
 }
 
 img {
   max-width: 100%;
   display: block;
+  border-radius: 8px;
+  border: 1px solid #333; /* Sedikit garis tepi gelap untuk foto */
 }
 
 /* HERO / Pembuka */
 .hero {
-  background: url('fa2.jpeg') center center/cover no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('fa2.jpeg') center center/cover no-repeat;
   height: 100vh;
   position: relative;
   display: flex;
@@ -38,7 +40,7 @@ img {
   text-align: center;
 }
 
-/* Efek bunga sakura */
+/* Efek bunga sakura (dibuat agak putih/emas lembut agar kontras) */
 #sakura-canvas {
   position: fixed;
   top: 0;
@@ -49,31 +51,44 @@ img {
   height: 100%;
 }
 
-/* Pastikan overlay hero berada di atas kanvas */
+/* Kotak Overlay Hero */
 .hero .overlay {
   position: relative;
   z-index: 2;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(20, 20, 20, 0.85); /* Hitam transparan */
+  border: 1px solid #d4af37;                  /* Border tipis warna Emas */
   padding: 40px;
-  border-radius: 10px;
+  border-radius: 12px;
   color: #fff;
   animation: fadeIn 2s ease;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); /* Efek cahaya emas lembut */
+}
+
+.hero .overlay p {
+  color: #e0e0e0;
+}
+
+#nama-tamu {
+  color: #d4af37; /* Nama tamu berwarna Emas */
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
 .hero button {
   margin-top: 20px;
   padding: 12px 24px;
   font-size: 16px;
-  background-color: #fff;
-  color: #000;
+  background-color: #d4af37; /* Tombol Emas */
+  color: #000;              /* Teks tombol hitam agar kontras */
   border: none;
   border-radius: 25px;
   cursor: pointer;
+  font-weight: bold;
   transition: all 0.3s ease;
 }
 
 .hero button:hover {
-  background-color: #ffd1dc;
+  background-color: #fff;   /* Berubah jadi putih saat di-hover */
   color: #000;
 }
 
@@ -90,6 +105,7 @@ img {
 /* Konten Undangan */
 #konten-undangan {
   padding: 40px 20px;
+  background-color: #0d0d0d;
 }
 
 .hidden {
@@ -105,12 +121,13 @@ img {
 .sticky-header {
   position: sticky;
   top: 0;
-  background-color: #fff;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+  background-color: rgba(13, 13, 13, 0.95); /* Hitam semi transparan */
+  padding: 15px;
+  border-bottom: 1px solid #333;
   text-align: center;
   font-family: 'Playfair Display', serif;
   font-size: 24px;
+  color: #d4af37; /* Judul header warna Emas */
   z-index: 1000;
 }
 
@@ -118,9 +135,15 @@ img {
 blockquote {
   font-style: italic;
   margin: 30px 0;
-  background-color: #fafafa;
+  background-color: #161616; /* Kotak kutipan gelap */
+  color: #ddd;
   padding: 20px;
-  border-left: 5px solid #ffd1dc;
+  border-left: 5px solid #d4af37; /* Garis pinggir Emas */
+  border-radius: 4px;
+}
+
+blockquote em {
+  color: #d4af37;
 }
 
 /* Profil Mempelai */
@@ -129,28 +152,49 @@ blockquote {
   margin: 40px 0;
 }
 
+.profil h2 {
+  color: #d4af37;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 20px;
+}
+
 .mempelai {
   margin-bottom: 30px;
 }
 
 .mempelai h3 {
-  font-size: 20px;
+  font-size: 22px;
   margin-bottom: 5px;
   font-weight: bold;
+  color: #fff;
 }
 
-.mempelai span {
-  font-size: 14px;
-  color: #888;
+.mempelai h3 span a {
+  color: #d4af37; /* Instagram link warna Emas */
+}
+
+.mempelai p {
+  color: #bbb;
 }
 
 /* Akad & Countdown */
 .akad {
-  background-color: #f9f9f9;
+  background-color: #161616; /* Kotak akad warna gelap */
   padding: 30px;
   margin: 40px 0;
   text-align: center;
   border-radius: 8px;
+  border: 1px solid #222;
+}
+
+.akad h2 {
+  color: #d4af37;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 15px;
+}
+
+.akad p {
+  color: #ccc;
 }
 
 .countdown {
@@ -161,20 +205,32 @@ blockquote {
 }
 
 .countdown div {
-  background: #fff;
+  background: #222; /* Kotak angka countdown */
+  color: #fff;
   border-radius: 10px;
   padding: 10px 15px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
   text-align: center;
   min-width: 60px;
+  border: 1px solid #333;
 }
 
 .countdown span {
   font-size: 20px;
   font-weight: bold;
+  color: #d4af37; /* Angka countdown warna Emas */
 }
 
 /* Doa Ucapan */
+.doa-ucapan h2 {
+  color: #d4af37;
+  font-family: 'Playfair Display', serif;
+}
+
+.doa-ucapan p {
+  color: #ccc;
+}
+
 .doa-ucapan form {
   display: flex;
   flex-direction: column;
@@ -184,24 +240,33 @@ blockquote {
 
 .doa-ucapan input,
 .doa-ucapan textarea {
-  padding: 10px;
+  padding: 12px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #444;
+  background-color: #161616; /* Input form gelap */
+  color: #fff;
   font-family: inherit;
 }
 
+.doa-ucapan input:focus,
+.doa-ucapan textarea:focus {
+  border-color: #d4af37; /* Border jadi emas saat diklik */
+  outline: none;
+}
+
 .doa-ucapan button {
-  background-color: #ffd1dc;
+  background-color: #d4af37; /* Tombol kirim Emas */
   color: #000;
   border: none;
-  padding: 10px;
+  padding: 12px;
   border-radius: 25px;
   cursor: pointer;
+  font-weight: bold;
   transition: background 0.3s ease;
 }
 
 .doa-ucapan button:hover {
-  background-color: #f8bfc9;
+  background-color: #fff;
 }
 
 /* Love Gift */
@@ -210,35 +275,49 @@ blockquote {
   text-align: center;
 }
 
+.love-gift h2 {
+  color: #d4af37;
+  font-family: 'Playfair Display', serif;
+}
+
+.love-gift p {
+  color: #ccc;
+}
+
 .rekening-box {
   margin-top: 15px;
-  padding: 15px;
-  background-color: #fff0f4;
+  padding: 20px;
+  background-color: #161616; /* Kotak rekening gelap */
   border-radius: 10px;
+  border: 1px solid #333;
 }
 
 .rekening-number {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 5px;
+  color: #d4af37; /* Nomor rekening warna Emas */
 }
 
 .atas-nama {
   font-size: 14px;
-  color: #666;
+  color: #aaa;
 }
 
 .rekening-box button {
-  margin-top: 10px;
+  margin-top: 15px;
   padding: 8px 20px;
   border: none;
   border-radius: 20px;
-  background-color: #ffd1dc;
+  background-color: #d4af37; /* Tombol copy rekening Emas */
+  color: #000;
+  font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .rekening-box button:hover {
-  background-color: #f8bfc9;
+  background-color: #fff;
 }
 
 /* Gallery */
@@ -247,9 +326,14 @@ blockquote {
   text-align: center;
 }
 
+.gallery h2 {
+  color: #d4af37;
+  font-family: 'Playfair Display', serif;
+}
+
 .gallery-subtitle {
   font-size: 14px;
-  color: #999;
+  color: #888;
   margin-bottom: 20px;
 }
 
@@ -277,6 +361,7 @@ blockquote {
 .gallery-caption {
   margin-top: 20px;
   font-style: italic;
+  color: #aaa;
 }
 
 /* Closing */
@@ -285,15 +370,25 @@ blockquote {
   margin: 60px 0 20px;
 }
 
+.closing h2 {
+  color: #d4af37;
+  font-family: 'Playfair Display', serif;
+}
+
 .closing .with-love {
   font-size: 18px;
-  color: #aaa;
+  color: #888;
 }
 
 /* Footer */
 .footer {
   text-align: center;
   font-size: 14px;
-  color: #666;
-  padding: 20px 0;
+  color: #888;
+  padding: 30px 0;
+  border-top: 1px solid #222;
+}
+
+.footer strong, .footer a {
+  color: #d4af37;
 }
