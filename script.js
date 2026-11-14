@@ -147,11 +147,18 @@ const countdownInterval = setInterval(() => {
   if (secondsEl) secondsEl.innerText = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
 }, 1000);
 
-// Copy Rekening
-function copyRekening() {
-  const rekening = document.getElementById("rekening").innerText;
-  navigator.clipboard.writeText(rekening).then(() => {
-    alert("Nomor rekening berhasil disalin!");
+// Copy Rekening & E-Wallet Dinamis
+function copyTeks(elementId, label) {
+  const elemen = document.getElementById(elementId);
+  if (!elemen) return;
+
+  // Mengambil teks dan menghapus tanda strip (-) jika ada, agar lebih mudah dipaste di m-banking
+  const teksBersih = elemen.innerText.replace(/-/g, '').trim();
+
+  navigator.clipboard.writeText(teksBersih).then(() => {
+    alert(label + " berhasil disalin!");
+  }).catch(() => {
+    alert("Gagal menyalin " + label);
   });
 }
 
