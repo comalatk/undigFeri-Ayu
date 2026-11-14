@@ -338,19 +338,35 @@ blockquote em {
 }
 
 .gallery-wrapper {
-  overflow: hidden;
+  overflow-x: auto; /* Memungkinkan galeri digeser manual (swipe) */
   position: relative;
+  scrollbar-width: none; /* Menyembunyikan scrollbar di Firefox */
+}
+
+/* Menyembunyikan scrollbar di Chrome/Safari */
+.gallery-wrapper::-webkit-scrollbar {
+  display: none; 
 }
 
 .gallery-track {
   display: flex;
-  gap: 10px;
-  animation: slideGallery 30s linear infinite;
+  gap: 15px;
+  width: max-content; /* Memastikan track melebar sesuai jumlah foto */
+  animation: slideGallery 35s linear infinite;
+}
+
+/* Jika disentuh atau kursor ditaruh di atas galeri, animasi berhenti sementara agar bisa digeser manual */
+.gallery-wrapper:hover .gallery-track {
+  animation-play-state: paused;
 }
 
 .gallery-track img {
   width: 200px;
+  height: 260px;          /* Menjaga tinggi foto agar seragam */
+  object-fit: cover;      /* Agar foto tidak gepeng */
+  flex: 0 0 auto;         /* Mencegah gambar ikut menyusut */
   border-radius: 10px;
+  border: 1px solid #333;
 }
 
 @keyframes slideGallery {
