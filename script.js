@@ -60,32 +60,51 @@ function sakuraFall() {
 
 sakuraFall();
 
-// Fitur Auto-Scroll ke Bawah Otomatis
+// Fitur Auto-Scroll Lebih Cepat & Bisa Jeda lalu Lanjut Otomatis
 let autoScrollInterval;
+let resumeTimer;
 
 function startAutoScroll() {
+  // Mencegah interval berjalan ganda
+  if (autoScrollInterval) return;
+
   autoScrollInterval = setInterval(() => {
     window.scrollBy({
-      top: 1,
+      top: 1.5, // Kecepatan langkah (sedikit ditingkatkan agar lebih cepat)
       behavior: 'smooth'
     });
 
-    // Berhenti otomatis jika sudah di paling bawah halaman
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-      stopAutoScroll();
+    // Jika sudah sampai paling bawah halaman, hentikan total
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 5) {
+      stopAutoScrollCompletely();
     }
-  }, 35); // Kecepatan scroll (semakin besar angka, semakin lambat)
+  }, 25); // Interval waktu dipercepat dari 35 menjadi 25 milidetik
 }
 
-function stopAutoScroll() {
+function pauseAutoScroll() {
+  // Hentikan sementara saat layar disentuh atau digulir
   clearInterval(autoScrollInterval);
+  autoScrollInterval = null;
+
+  // Bersihkan timer jeda sebelumnya
+  clearTimeout(resumeTimer);
+
+  // Otomatis lanjut jalan lagi setelah 2.5 detik pengguna selesai membaca/menggeser manual
+  resumeTimer = setTimeout(() => {
+    startAutoScroll();
+  }, 2500); // 2500 milidetik = 2.5 detik tidak ada sentuhan, maka jalan lagi
 }
 
-// Hentikan auto-scroll jika pengguna menyentuh layar / scroll manual
-window.addEventListener('wheel', stopAutoScroll);
-window.addEventListener('touchstart', stopAutoScroll);
+function stopAutoScrollCompletely() {
+  clearInterval(autoScrollInterval);
+  autoScrollInterval = null;
+  clearTimeout(resumeTimer);
+}
 
-
+// Deteksi interaksi sentuhan di HP (touchstart), scroll mouse (wheel), atau klik (mousedown)
+window.addEventListener('touchstart', pauseAutoScroll, { passive: true });
+window.addEventListener('wheel', pauseAutoScroll, { passive: true });
+window.addEventListener('mousedown', pauseAutoScroll, { passive: true });
 // Buka Undangan (Dioptimalkan untuk iPhone/iOS)
 const bukaBtn = document.getElementById("buka-undangan");
 if (bukaBtn) {
