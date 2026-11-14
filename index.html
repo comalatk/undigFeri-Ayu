@@ -127,23 +127,27 @@
         </form>
       </section>
 
-      <!-- Wedding Love Gift -->
-      <section class="love-gift">
-        <h2>Wedding Love Gift</h2>
-        <p>
-          Apabila tamu ingin mengirimkan hadiah kepada kedua mempelai dapat melalui virtual account atau e-wallet:
-        </p>
+    <!-- Wedding Love Gift -->
+<section class="love-gift">
+  <h2>Wedding Love Gift</h2>
+  <p>
+    Apabila tamu ingin mengirimkan hadiah kepada kedua mempelai dapat melalui virtual account atau e-wallet:
+  </p>
 
-        <div class="rekening-box">
-          <p class="rekening-number" id="rekening">5990-0103-9359-531</p>
-          <p class="atas-nama"> BRI a.n Feri Pujiono</p>
-          <button onclick="copyRekening()">Copy Rekening</button>
- <p class="rekening-number" id="rekening">0896-4425-4052</p>
-          <p class="atas-nama"> DANA a.n Feri Pujiono</p>
-          <button onclick="copyRekening()">Copy Nomer DANA</button>
-          
-        </div>
-      </section>
+  <div class="rekening-box">
+    <!-- Rekening BRI -->
+    <p class="rekening-number" id="rekening-bri">5990-0103-9359-531</p>
+    <p class="atas-nama">BRI a.n Feri Pujiono</p>
+    <button onclick="copyTeks('rekening-bri', 'Nomor rekening BRI')">Copy Rekening BRI</button>
+
+    <hr style="border: 0.5px solid #333; margin: 20px 0;">
+
+    <!-- Nomor DANA -->
+    <p class="rekening-number" id="nomor-dana">089644254052</p>
+    <p class="atas-nama">DANA a.n Feri Pujiono</p>
+    <button onclick="copyTeks('nomor-dana', 'Nomor DANA')">Copy Nomor DANA</button>
+  </div>
+</section>
 
       <!-- Gallery -->
       <section class="gallery">
