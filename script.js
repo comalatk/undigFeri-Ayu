@@ -211,30 +211,72 @@ if (toggleBtn) {
   });
 }
 
-// Komentar Real-time Dummy
-const form = document.querySelector("#comment-form");
-if (form) {
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const namaInput = form.querySelector("input");
-    const ucapanInput = form.querySelector("textarea");
+// Komentar Real-time dengan Firebase Realtime Database
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("#comment-form");
+  const container = document.getElementById("daftar-ucapan-container");
 
-    const nama = namaInput.value;
-    const ucapan = ucapanInput.value;
+  // Menunggu koneksi Firebase siap
+  const cekRtdb = setInterval(() => {
+    if (window.rtdb && window.rtdbModules) {
+      clearInterval(cekRtdb);
+      muatUcapanRTDB();
+    }
+  }, 100);
 
-    if (nama && ucapan) {
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const namaInput = form.querySelector("input");
+      const ucapanInput = form.querySelector("textarea");
+
+      const nama = namaInput.value.trim();
+      const ucapan = ucapanInput.value.trim();
+
+      if (nama && ucapan && window.rtdb) {
+        const { ref, push } = window.rtdbModules;
+        const ucapanRef = ref(window.rtdb, "ucapan");
+
+        // Kirim data ke database Firebase
+        push(ucapanRef, {
+          nama: nama,
+          pesan: ucapan,
+          waktu: Date.now()
+        }).then(() => {
+          form.reset();
+        }).catch((err) => {
+          console.error("Gagal mengirim:", err);
+          alert("Gagal mengirim ucapan.");
+        });
+      }
+    });
+  }
+});
+
+function muatUcapanRTDB() {
+  const { ref, onChildAdded } = window.rtdbModules;
+  const container = document.getElementById("daftar-ucapan-container");
+  if (!container) return;
+
+  const ucapanRef = ref(window.rtdb, "ucapan");
+
+  // Mendengarkan pesan baru yang masuk secara real-time
+  onChildAdded(ucapanRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
       const escapeHTML = (str) =>
         str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-      const namaSafe = escapeHTML(nama);
-      const ucapanSafe = escapeHTML(ucapan);
+      const namaSafe = escapeHTML(data.nama);
+      const ucapanSafe = escapeHTML(data.pesan);
 
-      const commentSection = document.createElement("div");
-      commentSection.innerHTML = `<p style="margin-top: 10px; padding: 10px; background: #fff; border-radius: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"><strong>${namaSafe}</strong>: ${ucapanSafe}</p>`;
-      commentSection.classList.add("fade-in");
-      
-      form.insertAdjacentElement("beforebegin", commentSection);
-      form.reset();
+      const commentDiv = document.createElement("div");
+      commentDiv.style.cssText = "margin-top: 10px; padding: 10px; background: #fff; border-radius: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); text-align: left; color: #333;";
+      commentDiv.innerHTML = `<strong style="color: #d4af37;">${namaSafe}</strong>: <p style="margin: 5px 0 0 0;">${ucapanSafe}</p>`;
+      commentDiv.classList.add("fade-in");
+
+      // Masukkan ucapan baru ke bagian atas daftar
+      container.prepend(commentDiv);
     }
   });
 }
