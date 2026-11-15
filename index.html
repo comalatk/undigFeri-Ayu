@@ -6,9 +6,7 @@
   <title>Undangan Pernikahan Feri & Ayu</title>
   <link rel="stylesheet" href="style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto&display=swap" rel="stylesheet">
-  
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-  
 </head>
 <body>
 
@@ -103,8 +101,9 @@
           <div><span id="minutes">00</span><br>Menit</div>
           <div><span id="seconds">00</span><br>Detik</div>
         </div>
+      </section>
 
-  <!-- Tanggal Resepsi & Lokasi -->
+      <!-- Tanggal Resepsi & Lokasi -->
       <section class="akad">
         <h2>Resepsi</h2>
         <p><strong>Senin, 23 November 2026</strong></p>
@@ -120,7 +119,9 @@
         <h2>Doa & Ucapan</h2>
         <p>Berikan doa dan ucapan kepada kedua mempelai</p>
 
-        <p><strong>Comments</strong></p>
+        <!-- Wadah Real-Time Ucapan -->
+        <div id="daftar-ucapan-container" style="margin: 20px 0; max-height: 300px; overflow-y: auto; text-align: left;"></div>
+
         <form id="comment-form">
           <input type="text" placeholder="Nama" required>
           <textarea placeholder="Ucapan" rows="4" required></textarea>
@@ -128,27 +129,27 @@
         </form>
       </section>
 
-    <!-- Wedding Love Gift -->
-<section class="love-gift">
-  <h2>Wedding Love Gift</h2>
-  <p>
-    Apabila tamu ingin mengirimkan hadiah kepada kedua mempelai dapat melalui virtual account atau e-wallet:
-  </p>
+      <!-- Wedding Love Gift -->
+      <section class="love-gift">
+        <h2>Wedding Love Gift</h2>
+        <p>
+          Apabila tamu ingin mengirimkan hadiah kepada kedua mempelai dapat melalui virtual account atau e-wallet:
+        </p>
 
-  <div class="rekening-box">
-    <!-- Rekening BRI -->
-    <p class="rekening-number" id="rekening-bri">5990-0103-9359-531</p>
-    <p class="atas-nama">BRI a.n Feri Pujiono</p>
-    <button onclick="copyTeks('rekening-bri', 'Nomor rekening BRI')">Copy Rekening BRI</button>
+        <div class="rekening-box">
+          <!-- Rekening BRI -->
+          <p class="rekening-number" id="rekening-bri">5990-0103-9359-531</p>
+          <p class="atas-nama">BRI a.n Feri Pujiono</p>
+          <button onclick="copyTeks('rekening-bri', 'Nomor rekening BRI')">Copy Rekening BRI</button>
 
-    <hr style="border: 0.5px solid #333; margin: 20px 0;">
+          <hr style="border: 0.5px solid #333; margin: 20px 0;">
 
-    <!-- Nomor DANA -->
-    <p class="rekening-number" id="nomor-dana">089644254052</p>
-    <p class="atas-nama">DANA a.n Feri Pujiono</p>
-    <button onclick="copyTeks('nomor-dana', 'Nomor DANA')">Copy Nomor DANA</button>
-  </div>
-</section>
+          <!-- Nomor DANA -->
+          <p class="rekening-number" id="nomor-dana">089644254052</p>
+          <p class="atas-nama">DANA a.n Feri Pujiono</p>
+          <button onclick="copyTeks('nomor-dana', 'Nomor DANA')">Copy Nomor DANA</button>
+        </div>
+      </section>
 
       <!-- Gallery -->
       <section class="gallery">
@@ -193,6 +194,29 @@
     document.addEventListener("DOMContentLoaded", () => {
       document.getElementById('nama-tamu').textContent = decodeURIComponent(namaTamu.replace(/\+/g, ' '));
     });
+  </script>
+
+  <!-- Firebase SDK & Konfigurasi -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCQ0-_2I8W2FNHtTjREotcv_zy40RAON7I",
+      authDomain: "undangan-digital-feri-dan-ayu.firebaseapp.com",
+      databaseURL: "https://undangan-digital-feri-dan-ayu-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "undangan-digital-feri-dan-ayu",
+      storageBucket: "undangan-digital-feri-dan-ayu.firebasestorage.app",
+      messagingSenderId: "428803163856",
+      appId: "1:428803163856:web:c197b9256685688828c0d5",
+      measurementId: "G-KBXMWBD60D"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.db = db;
+    window.firebaseModules = { collection, addDoc, onSnapshot, query, orderBy };
   </script>
 
   <!-- JavaScript Utama -->
